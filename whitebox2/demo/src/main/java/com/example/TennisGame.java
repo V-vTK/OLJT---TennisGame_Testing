@@ -1,6 +1,7 @@
 // This implementation is used for practicing unit tests. 
 // NOTE THAT it may contain bugs
 // Write unit tests in TennisGameTest.java and try to find the errors in the code
+package com.example;
 
 public class TennisGame {
 	private int player1Points;
@@ -70,22 +71,24 @@ public class TennisGame {
 			String player1Score = getScore(player1Points);
 			String player2Score = getScore(player2Points);
 			
+			if (player1Points >= 3 && player1Points == player2Points) // Changed to three "If at least three points have been scored by each player, and the scores are equal, the score is "deuce"."
+				return "deuce";
+
+			//If at least three points have been scored by each side and a player has one more point than his opponent, the score of the game is "advantage" for the player in the lead.
+			if (player1Points >= 4 && player1Points - player2Points == 1)
+				return "player1 has advantage";
+			
+			if (player2Points >= 4 && player2Points - player1Points == 1)
+				return "player2 has advantage";
+					
+			// Changed order because advantage was impossible
 			if (gameEnded) {
 				if (player1Points > player2Points)
 					return "player1 wins";
 				else
 					return "player2 wins";
 			}
-			
-			if (player1Points >= 4 && player1Points == player2Points)
-				return "deuce";
-			
-			if (player1Points >= 4 && player1Points - player2Points == 1)
-				return "player1 has advantage";
-			
-			if (player2Points > 4 && player2Points - player1Points == 1)
-				return "player2 has advantage";							
-			
+
 			return  player2Score + " - " + player1Score ;
 	}
 }
